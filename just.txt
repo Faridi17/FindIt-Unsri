@@ -1,1 +1,0 @@
-<td><span class="badge rounded-pill bg-danger">Masih</span></td>

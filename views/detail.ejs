@@ -4,38 +4,42 @@
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6">
-                        <div id="itemCarousel" class="carousel slide">
+                        <div id="itemCarousel" class="carousel slide" >
                             <div class="carousel-inner">
 
-                                <!-- Slide 1: Foto barang -->
                                 <div class="carousel-item active">
                                     <img src="<%= item.photo || 'https://via.placeholder.com/600x600?text=No+Image' %>"
                                         class="d-block w-100" alt="<%= item.name %>"
                                         style="width: 600px; height: 600px; object-fit: cover;" />
                                 </div>
 
-                                <!-- Slide 2: Lokasi (Google Maps Embed) -->
+
                                 <div class="carousel-item">
-                                    <iframe width="600" height="600" style="border:0; width: 100%; object-fit: cover;"
-                                        loading="lazy" allowfullscreen
-                                        src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=<%= item.latitude %>,<%= item.longitude %>">
-                                    </iframe>
+                                    <div id="map-<%= item.id %>" style="width: 100%; height: 600px;"></div>
                                 </div>
 
                             </div>
 
-                            <!-- Controls -->
                             <button class="carousel-control-prev" type="button" data-bs-target="#itemCarousel"
                                 data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
+                                <span class="carousel-control-prev-icon"></span>
                             </button>
                             <button class="carousel-control-next" type="button" data-bs-target="#itemCarousel"
                                 data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
+                                <span class="carousel-control-next-icon"></span>
                             </button>
                         </div>
+
+                        <button class="carousel-control-prev" type="button" data-bs-target="#itemCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#itemCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
 
                     <div class="col-md-6">
@@ -63,6 +67,8 @@
         </section>
     </div>
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         function openGoogleMaps(destLat, destLng) {
             const lat = parseFloat(destLat);
@@ -89,4 +95,34 @@
             }
         }
 
+        const carouselEl = document.getElementById('itemCarousel');
+        carouselEl.addEventListener('slid.bs.carousel', function (e) {
+            const activeIndex = e.to;
+            const activeItem = carouselEl.querySelectorAll('.carousel-item')[activeIndex];
+            const mapDiv = activeItem.querySelector('div[id^="map-"]');
+
+            if (mapDiv && !mapDiv.dataset.mapInit) {
+                const latitude = <%= item.latitude %>;
+                const longitude = <%= item.longitude %>;
+
+                const map = L.map(mapDiv.id).setView([latitude, longitude], 16);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(map);
+
+                L.marker([latitude, longitude]).addTo(map)
+                    .bindPopup("<b>Lokasi <%= item.name %></b>").openPopup();
+
+                mapDiv.dataset.mapInit = true;
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const firstMapDiv = document.querySelector('.carousel-item.active div[id^="map-"]');
+            if (firstMapDiv) {
+                firstMapDiv.dispatchEvent(new Event('slid.bs.carousel', { bubbles: true }));
+            }
+        });
     </script>
