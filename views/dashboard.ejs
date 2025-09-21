@@ -1,0 +1,395 @@
+<%- include('layouts/navbar') %>
+    <section class="py-3 py-md-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="">
+                    <div class="card widget-card border-light">
+                        <div class="card-body p-4">
+                            <div class="my-4 d-flex justify-content-between align-items-center">
+                                <h4 class="card-title widget-card-title">List Barang Hilang</h4>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#tambahModal">
+                                    + Tambah
+                                </button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-borderless bsb-table-xl text-nowrap align-middle m-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Barang</th>
+                                            <th>Lokasi</th>
+                                            <th>Waktu</th>
+                                            <th>Foto</th>
+                                            <th>Status</th>
+                                            <th>Tindakan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (items.length===0) { %>
+                                            <tr>
+                                                <td colspan="10" class="text-center text-secondary"
+                                                    style="padding-top: 1.5rem;">
+                                                    Tidak ada data barang
+                                                </td>
+                                            </tr>
+                                            <% } else { %>
+                                                <% items.forEach(item=> { %>
+                                                    <tr>
+                                                        <td><span class="text-secondary fs-7">
+                                                                <%= item.name %>
+                                                            </span></td>
+                                                        <td>
+                                                            <span class="text-secondary fs-7">
+                                                                <%= item.location %>
+                                                            </span>
+                                                        </td>
+                                                        <td><span class="text-secondary fs-7">
+                                                                <%= new Date(item.time).toLocaleDateString('id-ID', {
+                                                                    day: 'numeric' , month: 'long' , year: 'numeric' })
+                                                                    %>,
+                                                                    <%= new Date(item.time).toLocaleTimeString('id-ID',
+                                                                        { hour: '2-digit' , minute: '2-digit' , hour12:
+                                                                        false }) %> WIB
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <% if (item.photo) { %>
+                                                                <img src="<%= item.photo %>" alt="Foto Barang"
+                                                                    style="width: 80px;  border-radius: 4px; height: auto;">
+                                                                <% } else { %>
+                                                                    -
+                                                                    <% } %>
+                                                        </td>
+                                                        <td>
+                                                            <% if (item.status==='Not Claimed' ) { %>
+                                                                <span class="badge rounded-pill bg-danger">
+                                                                    Belum Diambil
+                                                                </span>
+                                                                <% } else { %>
+                                                                    <span
+                                                                        class="badge rounded-pill bg-success">Diambil</span>
+                                                                    <% } %>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-primary"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#editModal-<%= item.id %>">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 24 24" fill="white" width="16"
+                                                                    height="16" class="size-6">
+                                                                    <path
+                                                                        d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                                                                </svg>
+
+
+                                                            </button>
+
+
+                                                            <button type="button" class="btn btn-sm btn-danger"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#deleteModal-<%= item.id %>">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 24 24" fill="currentColor" width="16"
+                                                                    height="16" class="size-6">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
+                                                                        clip-rule="evenodd" />
+                                                                </svg>
+
+                                                            </button>
+
+                                                        </td>
+
+                                                    </tr>
+                                                    <div class="modal fade" id="deleteModal-<%= item.id %>"
+                                                        tabindex="-1" aria-labelledby="deleteModalLabel-<%= item.id %>"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title"
+                                                                        id="deleteModalLabel-<%= item.id %>">Konfirmasi
+                                                                        Hapus</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Apakah Anda yakin ingin menghapus <b>
+                                                                        <%= item.name %>
+                                                                    </b>?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-primary"
+                                                                        data-bs-dismiss="modal">Batal</button>
+                                                                    <form action="/item/delete/<%= item.id %>"
+                                                                        method="POST" class="d-inline">
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger">Hapus Barang</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="modal fade" id="editModal-<%= item.id %>" tabindex="-1"
+                                                        aria-labelledby="editModalLabel-<%= item.id %>"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title"
+                                                                        id="editModalLabel-<%= item.id %>">Edit
+                                                                        Barang</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="/item/edit/<%= item.id %>"
+                                                                        method="POST" enctype="multipart/form-data">
+                                                                        <div class="mb-3">
+                                                                            <label for="barang-<%= item.id %>"
+                                                                                class="form-label">Nama
+                                                                                Barang</label>
+                                                                            <input type="text" class="form-control"
+                                                                                name="name" id="barang-<%= item.id %>"
+                                                                                value="<%= item.name %>" required>
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="lokasi-<%= item.id %>"
+                                                                                class="form-label">Lokasi</label>
+                                                                            <select class="form-select" name="location"
+                                                                                id="lokasi-<%= item.id %>" required>
+                                                                                <option value="" disabled
+                                                                                    <%=!item.location ? "selected" : ""
+                                                                                    %>>Pilih lokasi</option>
+
+                                                                                <option
+                                                                                    value='{"name":"Fakultas Ekonomi","lat":-3.2179922948347626,"lng":104.65064090892372}'
+                                                                                    <%=item.location==="Fakultas Ekonomi"
+                                                                                    ? "selected" : "" %>>
+                                                                                    Fakultas Ekonomi
+                                                                                </option>
+
+                                                                                <option
+                                                                                    value='{"name":"Fakultas Hukum","lat":-3.2152647292845398,"lng":104.65079213961201}'
+                                                                                    <%=item.location==="Fakultas Hukum"
+                                                                                    ? "selected" : "" %>>
+                                                                                    Fakultas Hukum
+                                                                                </option>
+
+                                                                                <option
+                                                                                    value='{"name":"Fakultas Teknik","lat":-3.2173254776649243,"lng":104.64614820884489}'
+                                                                                    <%=item.location==="Fakultas Teknik"
+                                                                                    ? "selected" : "" %>>
+                                                                                    Fakultas Teknik
+                                                                                </option>
+
+                                                                                <option
+                                                                                    value='{"name":"Fakultas Kedokteran","lat":-3.2159599702186936,"lng":104.64695748632029}'
+                                                                                    <%=item.location==="Fakultas Kedokteran"
+                                                                                    ? "selected" : "" %>>
+                                                                                    Fakultas Kedokteran
+                                                                                </option>
+
+                                                                                <option
+                                                                                    value='{"name":"Fakultas Pertanian","lat":-3.219581769304781,"lng":104.64816467407553}'
+                                                                                    <%=item.location==="Fakultas Pertanian"
+                                                                                    ? "selected" : "" %>>
+                                                                                    Fakultas Pertanian
+                                                                                </option>
+
+                                                                                <option
+                                                                                    value='{"name":"Fakultas Keguruan dan Ilmu Pendidikan","lat":-3.221087991803207,"lng":104.65166674663436}'
+                                                                                    <%=item.location==="Fakultas Keguruan dan Ilmu Pendidikan"
+                                                                                    ? "selected" : "" %>>
+                                                                                    Fakultas Keguruan dan Ilmu
+                                                                                    Pendidikan
+                                                                                </option>
+
+                                                                                <option
+                                                                                    value='{"name":"Fakultas Ilmu Sosial dan Ilmu Politik","lat":-3.2164920814680253,"lng":104.65110736631193}'
+                                                                                    <%=item.location==="Fakultas Ilmu Sosial dan Ilmu Politik"
+                                                                                    ? "selected" : "" %>>
+                                                                                    Fakultas Ilmu Sosial dan Ilmu
+                                                                                    Politik
+                                                                                </option>
+
+                                                                                <option
+                                                                                    value='{"name":"Fakultas MIPA","lat":-3.218442677831443,"lng":104.6463383862676}'
+                                                                                    <%=item.location==="Fakultas MIPA"
+                                                                                    ? "selected" : "" %>>
+                                                                                    Fakultas MIPA
+                                                                                </option>
+
+                                                                                <option
+                                                                                    value='{"name":"Fakultas Ilmu Komputer","lat":-3.219481150172853,"lng":104.65115074590034}'
+                                                                                    <%=item.location==="Fakultas Ilmu Komputer"
+                                                                                    ? "selected" : "" %>>
+                                                                                    Fakultas Ilmu Komputer
+                                                                                </option>
+
+                                                                                <option
+                                                                                    value='{"name":"Fakultas Kesehatan Masyarakat","lat":-3.2136355601985773,"lng":104.64461449546863}'
+                                                                                    <%=item.location==="Fakultas Kesehatan Masyarakat"
+                                                                                    ? "selected" : "" %>>
+                                                                                    Fakultas Kesehatan Masyarakat
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+
+
+                                                                        <div class="mb-3">
+                                                                            <label for="waktu-<%= item.id %>"
+                                                                                class="form-label">Waktu</label>
+                                                                            <input type="datetime-local"
+                                                                                class="form-control" name="time"
+                                                                                id="waktu-<%= item.id %>"
+                                                                                value="<%= item.time.toISOString().slice(0,16) %>"
+                                                                                required>
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="foto"
+                                                                                class="form-label">Foto</label>
+                                                                            <input type="file" class="form-control"
+                                                                                name="photo" id="foto">
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="status-<%= item.id %>"
+                                                                                class="form-label">Status</label>
+                                                                            <select class="form-select" name="status"
+                                                                                id="status-<%= item.id %>" required>
+                                                                                <option value="Not Claimed"
+                                                                                    <%=item.status==="Not Claimed"
+                                                                                    ? "selected" : "" %>>
+                                                                                    Belum Diambil
+                                                                                </option>
+                                                                                <option value="Claimed"
+                                                                                    <%=item.status==="Claimed"
+                                                                                    ? "selected" : "" %>>
+                                                                                    Diambil
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="keterangan-<%= item.id %>"
+                                                                                class="form-label">Keterangan</label>
+                                                                            <textarea class="form-control"
+                                                                                name="description"
+                                                                                id="keterangan-<%= item.id %>"
+                                                                                rows="4"><%= item.description %></textarea>
+                                                                        </div>
+                                                                        <div class="text-end">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-bs-dismiss="modal">Batal</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary">Simpan
+                                                                                Perubahan</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <% }); %>
+                                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tambahModalLabel">Tambah Barang Hilang</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/item/add" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="barang" class="form-label">Nama Barang</label>
+                            <input type="text" class="form-control" name="name" id="barang" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lokasi" class="form-label">Lokasi</label>
+                            <select class="form-select" name="location" id="lokasi" required>
+                                <option value="" selected disabled>Pilih lokasi</option>
+                                <option
+                                    value='{"name":"Fakultas Ekonomi","lat":-3.2179922948347626,"lng":104.65064090892372}'>
+                                    Fakultas Ekonomi
+                                </option>
+                                <option
+                                    value='{"name":"Fakultas Hukum","lat":-3.2152647292845398,"lng":104.65079213961201}'>
+                                    Fakultas Hukum
+                                </option>
+                                <option
+                                    value='{"name":"Fakultas Teknik","lat":-3.2173254776649243,"lng":104.64614820884489}'>
+                                    Fakultas Teknik
+                                </option>
+                                <option
+                                    value='{"name":"Fakultas Kedokteran","lat":-3.2159599702186936,"lng":104.64695748632029}'>
+                                    Fakultas Kedokteran
+                                </option>
+                                <option
+                                    value='{"name":"Fakultas Pertanian","lat":-3.219581769304781,"lng":104.64816467407553}'>
+                                    Fakultas Pertanian
+                                </option>
+                                <option
+                                    value='{"name":"Fakultas Keguruan dan Ilmu Pendidikan","lat":-3.221087991803207,"lng":104.65166674663436}'>
+                                    Fakultas Keguruan dan Ilmu Pendidikan
+                                </option>
+                                <option
+                                    value='{"name":"Fakultas Ilmu Sosial dan Ilmu Politik","lat":-3.2164920814680253,"lng":104.65110736631193}'>
+                                    Fakultas Ilmu Sosial dan Ilmu Politik
+                                </option>
+                                <option
+                                    value='{"name":"Fakultas MIPA","lat":-3.218442677831443,"lng":104.6463383862676}'>
+                                    Fakultas MIPA
+                                </option>
+                                <option
+                                    value='{"name":"Fakultas Ilmu Komputer","lat":-3.219481150172853,"lng":104.65115074590034}'>
+                                    Fakultas Ilmu Komputer
+                                </option>
+                                <option
+                                    value='{"name":"Fakultas Kesehatan Masyarakat","lat":-3.2136355601985773,"lng":104.64461449546863}'>
+                                    Fakultas Kesehatan Masyarakat
+                                </option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="waktu" class="form-label">Waktu</label>
+                            <input type="datetime-local" class="form-control" name="time" id="waktu" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="foto" class="form-label">Foto</label>
+                            <input type="file" class="form-control" name="photo" id="foto">
+                        </div>
+                        <div class="mb-3">
+                            <label for="keterangan" class="form-label">Keterangan</label>
+                            <textarea class="form-control" name="description" id="keterangan" rows="4"
+                                placeholder="Tuliskan keterangan tambahan di sini..."></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

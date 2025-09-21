@@ -1,0 +1,43 @@
+<%- include('layouts/navbar') %>
+    <div class="container">
+        <div class="mt-5">
+            <p class="h2">Barang yang Hilang</p>
+        </div>
+
+        <div class="my-4 d-flex flex-wrap gap-4">
+            <% if (items.length===0) { %>
+                <p class="text-muted">Belum ada barang hilang yang tercatat.</p>
+                <% } else { %>
+                    <% items.forEach(item=> { %>
+                        <a href="/detail/<%= item.id %>" class="text-decoration-none text-dark">
+
+                            <div class="card" style="width: 18rem;">
+                                <img src="<%= item.photo || 'https://via.placeholder.com/300?text=No+Image' %>"
+                                    class="card-img-top" alt="<%= item.name %>"
+                                    style="width: 100%; aspect-ratio: 1 / 1; object-fit: cover;">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%= item.name %>
+                                    </h5>
+                                    <p class="card-text">
+                                        <%= item.description || 'Tidak ada deskripsi.' %>
+                                    </p>
+                                    <div class="text-end mt-2">
+                                        <div class="badge bg-primary text-decoration-none px-3 py-2">
+                                            <%= new Date(item.time).toLocaleDateString('id-ID', { weekday: 'long' ,
+                                                day: 'numeric' , month: 'long' , year: 'numeric' }) %>,
+                                                <%= new Date(item.time).toLocaleTimeString('id-ID', { hour: '2-digit' ,
+                                                    minute: '2-digit' , hour12: false }) %>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </a>
+                        <% }) %>
+                            <% } %>
+        </div>
+
+    </div>

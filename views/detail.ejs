@@ -1,0 +1,92 @@
+<%- include('layouts/navbar') %>
+    <div class="container">
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6">
+                        <div id="itemCarousel" class="carousel slide">
+                            <div class="carousel-inner">
+
+                                <!-- Slide 1: Foto barang -->
+                                <div class="carousel-item active">
+                                    <img src="<%= item.photo || 'https://via.placeholder.com/600x600?text=No+Image' %>"
+                                        class="d-block w-100" alt="<%= item.name %>"
+                                        style="width: 600px; height: 600px; object-fit: cover;" />
+                                </div>
+
+                                <!-- Slide 2: Lokasi (Google Maps Embed) -->
+                                <div class="carousel-item">
+                                    <iframe width="600" height="600" style="border:0; width: 100%; object-fit: cover;"
+                                        loading="lazy" allowfullscreen
+                                        src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=<%= item.latitude %>,<%= item.longitude %>">
+                                    </iframe>
+                                </div>
+
+                            </div>
+
+                            <!-- Controls -->
+                            <button class="carousel-control-prev" type="button" data-bs-target="#itemCarousel"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#itemCarousel"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="small mb-1">
+                            <%= new Date(item.time).toLocaleDateString('id-ID', { weekday: 'long' , day: 'numeric' ,
+                                month: 'long' , year: 'numeric' }) %>,
+                                <%= new Date(item.time).toLocaleTimeString('id-ID', { hour: '2-digit' ,
+                                    minute: '2-digit' , hour12: false }) %>
+                        </div>
+                        <h1 class="display-5 fw-bolder mb-3">
+                            <%= item.name %>
+                        </h1>
+                        <p class="lead">
+                            <%= item.description || 'Tidak ada deskripsi.' %>
+                        </p>
+
+                        <button class="btn btn-outline-dark flex-shrink-0" type="button"
+                            onclick="openGoogleMaps('<%= item.latitude %>', '<%= item.longitude %>')">
+                            Lokasi
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function openGoogleMaps(destLat, destLng) {
+            const lat = parseFloat(destLat);
+            const lng = parseFloat(destLng);
+
+            if (isNaN(lat) || isNaN(lng)) {
+                alert("Lokasi barang tidak valid.");
+                return;
+            }
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    const userLat = position.coords.latitude;
+                    const userLng = position.coords.longitude;
+
+                    const url = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${lat},${lng}&travelmode=driving`;
+                    console.log("Google Maps URL:", url); // debug di console
+                    window.open(url, '_blank');
+                }, function () {
+                    alert('Tidak bisa mendapatkan lokasi Anda. Pastikan GPS aktif.');
+                });
+            } else {
+                alert("Browser tidak mendukung Geolocation.");
+            }
+        }
+
+    </script>
