@@ -26,8 +26,8 @@ Here are the steps to run this project locally.
 
 1.  **Clone this repository:**
     ```bash
-    git clone [YOUR_REPOSITORY_URL]
-    cd [PROJECT_FOLDER_NAME]
+    git clone https://github.com/Faridi17/FindIt-Unsri.git
+    cd FindIt-Unsri
     ```
 
 2.  **Install dependencies:**
