@@ -76,14 +76,24 @@ Here are the steps to run this project locally.
 
 6.  **Run the server:**
     ```bash
-    npm start
+    node index.js
     ```
 
-7.  **Access the application** in your browser at:
+7.  **Create an Admin User:**
+    With the server running, you need to create a user account to log in. Send a `POST` request to `http://localhost:3000/register` using an API platform like Postman or Insomnia.
+
+    **Request Body (JSON):**
+    ```json
+    {
+    	"username": "username",
+    	"password": "password"
+    }
+    ```
+
+8.  **Access the application** in your browser at:
     ```
     http://localhost:3000
     ```
-
 ---
 
 ## License
