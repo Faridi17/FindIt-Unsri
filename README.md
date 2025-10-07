@@ -22,7 +22,14 @@ Here are the steps to run this project locally.
 -   [NPM](https://www.npmjs.com/)
 -   [MySQL](https://www.mysql.com/) or other MySQL databases like MariaDB.
 
-### 2. Installation
+## 2. Preview
+
+<p float="left">
+  <img src="img/preview1.png" width="48%" />
+  <img src="img/preview2.png" width="48%" />
+</p>
+
+### 3. Installation
 
 1.  **Clone this repository:**
     ```bash
