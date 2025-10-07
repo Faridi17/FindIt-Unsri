@@ -1,0 +1,109 @@
+<%- include('layouts/navbar') %>
+  <main>
+
+
+
+    <section class="mx-auto max-w-[1340px] px-6 lg:px-20 3xl:px-0 py-10 pb-32 lg:py-30 relative overflow-hidden">
+
+      <div class="">
+        <div class="absolute lg:-left-20 lg:-top-[270px] h-screen w-screen bg-pattern-1 bg-cover bg-center" />
+      </div>
+
+      <div class="flex gap-20 flex-col md:gap-28 lg:flex-row">
+        <div class="relative z-20 flex flex-1 flex-col xl:w-1/2">
+          <img src="/assets/img/favicon.png" alt="camp"
+            class="w-[30px] h-[30px] lg:w-[40px] lg:h-[40px] absolute left-[-5px] top-[-15px] lg:top-[-10px] rotate-90 opacity-85" />
+          <h1 class="ext-[52px] font-[700] lg:text-[88px]">FindIt Unsri</h1>
+          <p class="text-[14px] font-base mt-6 text-slate-600 xl:max-w-[520px]">
+            FindIt Unsri adalah sebuah platform yang memfasilitasi penyerahan, pemberi informasi, dan pengembalian
+            barang-barang yang ditemukan di lingkungan Universitas Sriwijaya.
+          </p>
+
+          <div class="flex flex-col gap-3 w-full lg:flex-row mt-6">
+            <button type="button"
+              class="flex items-center justify-center gap-3 rounded-full border bg-blue-500 px-6 py-4 text-white font-bold hover:opacity-95 ">
+              Cari Barang Hilang
+            </button>
+          </div>
+        </div>
+
+        <div class="relative flex flex-1 items-start">
+          <div class="relative z-20 flex w-[268px] flex-col gap-8 rounded-3xl bg-blue-500 px-7 py-8">
+
+            <div class="flex flex-col">
+              <div class="flex items-center justify-between">
+                <p class="text-[14px] font-[500] text-blue-100">Nama</p>
+                <Image src="/assets/img/close.svg" alt="close" width={24} height={24} />
+              </div>
+              <p class="text-[20px] font-[700] text-white">Handphone Xiaomi</p>
+            </div>
+
+            <div class="flex items-center gap-8">
+              <div class="flex flex-col">
+                <p class="text-[14px] font-[500] block text-blue-100">Lokasi</p>
+                <p class="text-[20px] font-[700] text-white">Fasilkom</p>
+              </div>
+              <div class="flex flex-col">
+                <p class="text-[14px] font-[500] block text-blue-100">Jarak</p>
+                <p class="text-[20px] font-[700] text-white">700 m</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="mx-auto max-w-[1440px] px-6 lg:px-20 3xl:px-0 py-10 pb-32 lg:py-20">
+      <h1 class="text-3xl font-[700]">List Barang</h1>
+
+      <div
+        class="w-full mx-auto grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-between gap-y-20 gap-x-14 mt-10 mb-5">
+        <% if (items.length===0) { %>
+          <div class="w-72 border rounded-xl hover:cursor-pointer relative">
+            <div class="h-80 w-72 bg-gray-300 rounded-t-xl"></div>
+
+            <div class="px-4 py-3 w-72">
+              <div class="h-3 bg-gray-300 rounded w-24 mb-2"></div>
+              <div class="h-4 bg-gray-300 rounded w-48 mb-2"></div>
+              <div class="h-3 bg-gray-300 rounded w-36"></div>
+            </div>
+          </div>
+          <% } else { %>
+            <% items.forEach(item=> { %>
+              <div class="w-72 border rounded-xl hover:cursor-pointer relative">
+                <a href="/detail/<%= item.id %>">
+
+                  <img src="<%= item.photo %>" alt="Product" class="h-80 w-72 object-cover rounded-t-xl" />
+                  <div
+                    class="absolute top-2 right-2 w-fit h-8 flex items-center justify-center text-white bg-blue-500 rounded-full px-2">
+                    <i class="ni ni-pin-3 text-sm font-semibold"></i>
+                    <span class="text-xs font-semibold ml-1 truncate">
+                      <%= item.location %>
+                    </span>
+                  </div>
+
+
+
+                  <div class="px-4 py-3 w-72">
+                    <span class="text-slate-300 mr-3 text-xs">
+                      <%= new Date(item.time).toLocaleDateString('id-ID', { weekday: 'long' , day: 'numeric' ,
+                        month: 'long' , year: 'numeric' }) %>
+                    </span>
+                    <p class="text-lg font-bold text-slate-800 truncate block capitalize mb-1">
+                      <%= item.name %>
+                    </p>
+                    <p class="text-slate-500 text-xs">
+                      <%= item.description %>
+                    </p>
+                  </div>
+                </a>
+
+              </div>
+              <% }) %>
+                <% } %>
+    </section>
+
+
+    </section>
+  </main>

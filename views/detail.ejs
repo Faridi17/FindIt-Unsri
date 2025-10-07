@@ -1,0 +1,186 @@
+<%- include('layouts/navbar') %>
+
+    <div style='background-color:rgba(0, 0, 0, 0)'>
+        <div class="container px-5 py-24 mx-auto" style="cursor: auto;">
+            <div class="lg:w-4/5 mx-auto flex flex-wrap items-center">
+
+                <div id="indicators-carousel" class="relative w-full lg:w-1/2" data-carousel="static">
+
+                    <!-- Carousel -->
+                    <div class="relative overflow-hidden rounded-lg aspect-[11/12]">
+
+                        <!-- Slide 1 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
+                            <img src="<%= item.photo %>" alt="Foto Produk"
+                                class="absolute block w-full h-full object-cover top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded opacity-90 brightness-105 contrast-90" />
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <div id="map" class="absolute w-full h-full top-0 left-0"></div>
+                        </div>
+
+                    </div>
+
+                    <!-- Slider indicators -->
+                    <div class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2">
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"
+                            data-carousel-slide-to="0"></button>
+                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2"
+                            data-carousel-slide-to="1"></button>
+                    </div>
+
+                    <!-- Slider controls -->
+                    <button type="button"
+                        class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                        data-carousel-prev>
+                        <span
+                            class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70">
+                            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M5 1 1 5l4 4" />
+                            </svg>
+                            <span class="sr-only">Previous</span>
+                        </span>
+                    </button>
+
+                    <button type="button"
+                        class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                        data-carousel-next>
+                        <span
+                            class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70">
+                            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 9 4-4-4-4" />
+                            </svg>
+                            <span class="sr-only">Next</span>
+                        </span>
+                    </button>
+                </div>
+
+                <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0" style="cursor: auto;">
+                    <h3 class="text-sm title-font text-gray-500 tracking-widest" style="cursor: auto;">
+                        <%= new Date(item.time).toLocaleDateString('id-ID', { weekday: 'long' , day: 'numeric' ,
+                            month: 'long' , year: 'numeric' }) %>
+                    </h3>
+                    <h1 class="text-slate-800 text-3xl title-font font-semibold mb-4" style="cursor: auto;">
+                        <%= item.name %>
+                    </h1>
+                    <p class="leading-relaxed text-gray-600 text-sm">
+                        <%= item.description %>
+                    </p>
+
+                    <div class="flex items-center border-t border-gray-200 mt-6 pt-6">
+                        <span class="title-font font-medium text-md text-slate-800">
+                            <%= item.location %>
+                        </span>
+
+                        <div class="flex items-center ml-auto gap-2">
+                            <button
+                                class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500"
+                                onclick="showRouteOnMap(<%= item.latitude %>, <%= item.longitude %>)">
+                                <i class="ni ni-pin-3 text-sm font-semibold"></i>
+                            </button>
+
+
+                            <button
+                                onclick="window.open(`https://www.google.com/maps/dir/?api=1&destination=<%= item.latitude %>,<%= item.longitude %>`, '_blank')"
+                                class="text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:brightness-90 rounded">
+                                Rute
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        let map, routeControl;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const lat = <%= item.latitude %>;
+            const lng = <%= item.longitude %>;
+            let mapInitialized = false;
+
+            function initMap() {
+                if (mapInitialized) return;
+                const mapDiv = document.getElementById("map");
+                if (!mapDiv) return;
+
+                map = L.map(mapDiv).setView([lat, lng], 15);
+                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    attribution: "&copy; OpenStreetMap contributors",
+                }).addTo(map);
+
+                L.marker([lat, lng]).addTo(map).bindPopup("<%= item.name %>").openPopup();
+
+                setTimeout(() => map.invalidateSize(), 500);
+                mapInitialized = true;
+            }
+
+            // Cek kapan slide map aktif, baru tampilkan map
+            const interval = setInterval(() => {
+                const mapSlide = document.querySelector('[data-carousel-item]:not(.hidden) #map');
+                if (mapSlide && !mapInitialized) {
+                    initMap();
+                    clearInterval(interval);
+                }
+            }, 500);
+        });
+
+        // 🔹 Fungsi untuk menampilkan rute di Leaflet
+        function showRouteOnMap(destLat, destLng) {
+            // Pindah ke slide peta
+            document.querySelector('[data-carousel-slide-to="1"]').click();
+
+            if (!navigator.geolocation) {
+                alert("Browser tidak mendukung fitur lokasi.");
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const userLat = position.coords.latitude;
+                    const userLng = position.coords.longitude;
+
+                    // Pastikan map sudah siap
+                    if (!window.map) return alert("Peta belum siap.");
+
+                    // Hapus rute lama kalau ada
+                    if (routeControl) {
+                        map.removeControl(routeControl);
+                    }
+
+                    // 🔥 Tambahkan rute sebenarnya (pakai OSRM)
+                    routeControl = L.Routing.control({
+                        waypoints: [
+                            L.latLng(userLat, userLng),
+                            L.latLng(destLat, destLng)
+                        ],
+                        lineOptions: {
+                            styles: [{ color: "blue", weight: 5, opacity: 0.7 }]
+                        },
+                        show: false,
+                        addWaypoints: false,
+                        routeWhileDragging: false,
+                        draggableWaypoints: false,
+                        fitSelectedRoutes: true,
+                        createMarker: function (i, wp, nWps) {
+                            return L.marker(wp.latLng, {
+                                draggable: false
+                            }).bindPopup(i === 0 ? "Lokasi Anda" : "<%= item.name %>");
+                        }
+                    }).addTo(map);
+                },
+                (error) => {
+                    alert("Tidak dapat mengambil lokasi Anda. Pastikan izin lokasi diaktifkan.");
+                    console.error(error);
+                }
+            );
+        }
+    </script>

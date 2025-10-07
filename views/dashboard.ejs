@@ -1,0 +1,578 @@
+<div
+  class="m-0 font-sans text-base antialiased font-normal dark:bg-slate-900 leading-default bg-gray-50 text-slate-500">
+
+
+  <div class="absolute w-full bg-blue-500 dark:hidden min-h-75"></div>
+
+  <aside
+    class="fixed inset-y-0 flex flex-col justify-between w-full p-0 my-4 overflow-hidden antialiased transition-transform duration-200 -translate-x-full bg-white border-0 shadow-xl dark:shadow-none dark:bg-slate-850 xl:ml-6 max-w-64 ease-nav-brand z-50 rounded-2xl xl:left-0 xl:translate-x-0"
+    aria-expanded="false">
+
+    <!-- Header -->
+    <div>
+      <div class="h-19 relative">
+        <i class="absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times dark:text-white text-slate-400 xl:hidden"
+          sidenav-close></i>
+        <a class="block px-8 py-6 m-0 text-sm whitespace-nowrap dark:text-white text-slate-700" href="/dashboard"
+          target="_blank">
+          <img src="/assets/img/favicon.png"
+            class="inline h-full max-w-full transition-all duration-200 ease-nav-brand max-h-7" alt="main_logo" />
+          <span class="ml-1 text-md font-semibold transition-all duration-200 ease-nav-brand">FindIt Unsri</span>
+        </a>
+      </div>
+
+      <hr
+        class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
+
+      <!-- Menu -->
+      <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
+        <ul class="flex flex-col pl-0 mb-0">
+          <li class="mt-0.5 w-full">
+            <div
+              class="py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors ">
+              <div
+                class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                <i class="relative top-0 text-sm leading-normal text-orange-500 ni ni-calendar-grid-58"></i>
+              </div>
+              <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Tabel Barang</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mx-4 mb-6">
+      <button data-modal-target="create-modal" data-modal-toggle="create-modal" type="button"
+        class="inline-flex items-center justify-center gap-1 w-full px-8 py-3 text-xs font-bold leading-normal text-center text-md text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md select-none bg-150 bg-x-25 hover:shadow-xs hover:-translate-y-px">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+            clip-rule="evenodd"></path>
+        </svg>
+        Tambah Barang
+      </button>
+
+    </div>
+  </aside>
+
+
+  <main class="relative h-full max-h-screen transition-all duration-200 ease-in-out xl:ml-68 rounded-xl">
+    <!-- Navbar -->
+    <nav
+      class="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all ease-in shadow-none duration-250 rounded-2xl lg:flex-nowrap lg:justify-start"
+      navbar-main navbar-scroll="false">
+      <div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
+        <nav>
+          <!-- breadcrumb -->
+          <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
+            <li class="text-sm leading-normal">
+              <a class="text-white opacity-50" href="javascript:;">Halaman</a>
+            </li>
+            <li
+              class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']"
+              aria-current="page">Tabel</li>
+          </ol>
+          <h6 class="mb-0 font-bold text-white capitalize">Tabel Barang</h6>
+        </nav>
+
+        <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
+          <div class="flex items-center md:ml-auto md:pr-4">
+            <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease">
+              <span
+                class="text-sm ease leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
+                <i class="fas fa-search"></i>
+              </span>
+              <input type="text"
+                class="pl-9 text-sm focus:shadow-primary-outline ease w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 dark:bg-slate-850 dark:text-white bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:transition-shadow"
+                placeholder="Type here..." />
+            </div>
+          </div>
+          <ul class="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
+            <!-- online builder btn  -->
+            <!-- <li class="flex items-center">
+                <a class="inline-block px-8 py-2 mb-0 mr-4 text-xs font-bold text-center text-blue-500 uppercase align-middle transition-all ease-in bg-transparent border border-blue-500 border-solid rounded-lg shadow-none cursor-pointer leading-pro hover:-translate-y-px active:shadow-xs hover:border-blue-500 active:bg-blue-500 active:hover:text-blue-500 hover:text-blue-500 tracking-tight-rem hover:bg-transparent hover:opacity-75 hover:shadow-none active:text-white active:hover:bg-transparent" target="_blank" href="https://www.creative-tim.com/builder/soft-ui?ref=navbar-dashboard&amp;_ga=2.76518741.1192788655.1647724933-1242940210.1644448053">Online Builder</a>
+              </li> -->
+            <li class="flex items-center">
+              <form action="/logout" method="POST">
+                <button type="submit"
+                  class="block px-0 py-2 text-sm font-semibold text-white transition-all ease-nav-brand">
+                  <i class="fa fa-user sm:mr-1"></i>
+                  <span class="hidden sm:inline">Logout</span>
+                </button>
+              </form>
+            </li>
+            <li class="flex items-center pl-4 xl:hidden">
+              <a href="javascript:;" class="block p-0 text-sm text-white transition-all ease-nav-brand" sidenav-trigger>
+                <div class="w-4.5 overflow-hidden">
+                  <i class="ease mb-0.75 relative block h-0.5 rounded-sm bg-white transition-all"></i>
+                  <i class="ease mb-0.75 relative block h-0.5 rounded-sm bg-white transition-all"></i>
+                  <i class="ease relative block h-0.5 rounded-sm bg-white transition-all"></i>
+                </div>
+              </a>
+            </li>
+            <li class="flex items-center px-4">
+              <a href="javascript:;" class="p-0 text-sm text-white transition-all ease-nav-brand">
+                <i fixed-plugin-button-nav class="cursor-pointer fa fa-cog"></i>
+                <!-- fixed-plugin-button-nav  -->
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="w-full px-6 py-6 mx-auto">
+
+      <div class="flex flex-wrap -mx-3">
+        <div class="flex-none w-full max-w-full px-3">
+          <div
+            class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+            <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+              <h6 class="dark:text-white">List Barang</h6>
+            </div>
+            <div class="flex-auto px-0 pt-0 pb-2">
+              <div class="p-0 overflow-x-auto">
+                <table class="items-center w-full mb-0 align-top border-collapse dark:border-white/40 text-slate-500">
+                  <thead class="align-bottom">
+                    <tr>
+                      <th
+                        class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                        Nama</th>
+                      <th
+                        class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                        Tanggal</th>
+                      <th
+                        class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                        Status</th>
+                      <th
+                        class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                        Lokasi</th>
+                      <th
+                        class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-collapse border-solid shadow-none dark:border-white/40 dark:text-white tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <% if (items.length===0) { %>
+                      <tr>
+                        <td colspan="10" class="text-center p-2" style="padding-top: 1.5rem;">
+                          Tidak ada data barang
+                        </td>
+                      </tr>
+                      <% } else { %>
+                        <% items.forEach(item=> { %>
+
+                          <tr>
+                            <td
+                              class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                              <div class="flex px-2 py-1">
+                                <div>
+                                  <img src="<%= item.photo %>"
+                                    class="inline-flex items-center object-cover opacity-90 justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl"
+                                    alt="user1" />
+                                </div>
+                                <div class="flex flex-col justify-center">
+                                  <h6 class="mb-0 text-sm leading-normal dark:text-white">
+                                    <%= item.name %>
+                                  </h6>
+                                  <p
+                                    class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400 truncate w-26">
+                                    <%= item.description %>
+                                  </p>
+                                </div>
+                              </div>
+                            </td>
+                            <td
+                              class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                              <p class="mb-0 text-xs leading-tight dark:text-white dark:opacity-80 text-slate-400">
+                                <%= new Date(item.time).toLocaleTimeString('id-ID', { hour: '2-digit' ,
+                                  minute: '2-digit' , hour12: false }) %> WIB
+                              </p>
+                              <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-80">
+                                <%= new Date(item.time).toLocaleDateString('id-ID', { day: 'numeric' , month: 'long' ,
+                                  year: 'numeric' }) %>
+                              </p>
+
+                            </td>
+                            <td
+                              class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                              <% if (item.status==='Not Claimed' ) { %>
+                                <span
+                                  class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Masih</span>
+                                <% } else { %>
+                                  <span
+                                    class="bg-gradient-to-tl from-slate-600 to-slate-300 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Diambil</span>
+                                  <% } %>
+                            </td>
+                            <td
+                              class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                              <span
+                                class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">
+                                <%= item.location %>
+                              </span>
+                            </td>
+                            <td
+                              class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                              <button data-modal-target="edit-modal-<%= item.id %>"
+                                data-modal-toggle="edit-modal-<%= item.id %>" type="button"
+                                class="text-xs hover:underline font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">
+                                Edit
+                              </button>
+                              <button data-modal-target="delete-modal-<%= item.id %>"
+                                data-modal-toggle="delete-modal-<%= item.id %>" type="button"
+                                class="ml-1 hover:underline text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">
+                                Hapus
+                              </button>
+                            </td>
+                          </tr>
+
+                          <!-- Modal Edit -->
+                          <div id="edit-modal-<%= item.id %>" tabindex="-1" aria-hidden="true"
+                            class="hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full overflow-y-auto overflow-x-hidden bg-black/30 backdrop-blur-sm">
+                            <div class="relative p-4 w-full max-w-md max-h-full">
+                              <!-- Modal content -->
+                              <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div
+                                  class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                                  <h3 class="text-lg font-semibold text-slate-800 dark:text-white">
+                                    Edit Barang Hilang
+                                  </h3>
+                                  <button type="button"
+                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-700 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                    data-modal-toggle="edit-modal-<%= item.id %>">
+                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                      fill="none" viewBox="0 0 14 14">
+                                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                    </svg>
+                                    <span class="sr-only">Close modal</span>
+                                  </button>
+                                </div>
+                                <!-- Modal body -->
+                                <form action="/item/edit/<%= item.id %>" method="POST" enctype="multipart/form-data">
+                                  <div class="p-4 md:p-5">
+                                    <div class="flex flex-col gap-4 mb-4">
+                                      <div class="col-span-2">
+                                        <label for="name"
+                                          class="block mb-2 text-sm font-medium text-slate-800 dark:text-white">Nama</label>
+                                        <input type="text" name="name" id="name" value="<%= item.name %>"
+                                          class="bg-gray-50 border border-gray-300 text-slate-800 text-sm rounded-lg focus:ring-primary-600 focus:outline-blue-500 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                          placeholder="Nama barang" required="">
+                                      </div>
+                                      <div class="grid grid-cols-2 gap-4">
+
+                                        <div class="col-span-2 sm:col-span-1">
+                                          <label for="time"
+                                            class="block mb-2 text-sm font-medium text-slate-800 dark:text-white">
+                                            Tanggal
+                                          </label>
+                                          <input type="datetime-local" name="time" id="time"
+                                            value="<%= new Date(item.time).toISOString().slice(0,16) %>"
+                                            class="bg-gray-50 h-11  border border-gray-300 text-slate-800 text-sm rounded-lg focus:ring-primary-600 focus:outline-blue-500 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            required>
+                                        </div>
+                                        <div class="col-span-2 sm:col-span-1">
+                                          <label for="status"
+                                            class="block mb-2 text-sm font-medium text-slate-800 dark:text-white">Status</label>
+                                          <select required name="status" id="status"
+                                            class="bg-gray-50 border border-gray-300 text-slate-800 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 focus:outline-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                            <option value="Not Claimed" <%=item.status==="Not Claimed" ? "selected" : ""
+                                              %>>
+                                              Belum Diambil
+                                            </option>
+                                            <option value="Claimed" <%=item.status==="Claimed" ? "selected" : "" %>>
+                                              Diambil
+                                            </option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="col-span-2 sm:col-span-1">
+                                        <label for="location"
+                                          class="block mb-2 text-sm font-medium text-slate-800 dark:text-white">Lokasi</label>
+                                        <select required name="location" id="location"
+                                          class="bg-gray-50 border border-gray-300 text-slate-800 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 focus:outline-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                          <option value="" disabled <%=!item.location ? "selected" : "" %>>Pilih lokasi
+                                          </option>
+
+                                          <option
+                                            value='{"name":"Fakultas Ekonomi","lat":-3.2179922948347626,"lng":104.65064090892372}'
+                                            <%=item.location==="Fakultas Ekonomi" ? "selected" : "" %>>
+                                            Fakultas Ekonomi
+                                          </option>
+
+                                          <option
+                                            value='{"name":"Fakultas Hukum","lat":-3.2152647292845398,"lng":104.65079213961201}'
+                                            <%=item.location==="Fakultas Hukum" ? "selected" : "" %>>
+                                            Fakultas Hukum
+                                          </option>
+
+                                          <option
+                                            value='{"name":"Fakultas Teknik","lat":-3.2173254776649243,"lng":104.64614820884489}'
+                                            <%=item.location==="Fakultas Teknik" ? "selected" : "" %>>
+                                            Fakultas Teknik
+                                          </option>
+
+                                          <option
+                                            value='{"name":"Fakultas Kedokteran","lat":-3.2159599702186936,"lng":104.64695748632029}'
+                                            <%=item.location==="Fakultas Kedokteran" ? "selected" : "" %>>
+                                            Fakultas Kedokteran
+                                          </option>
+
+                                          <option
+                                            value='{"name":"Fakultas Pertanian","lat":-3.219581769304781,"lng":104.64816467407553}'
+                                            <%=item.location==="Fakultas Pertanian" ? "selected" : "" %>>
+                                            Fakultas Pertanian
+                                          </option>
+
+                                          <option
+                                            value='{"name":"Fakultas Keguruan dan Ilmu Pendidikan","lat":-3.221087991803207,"lng":104.65166674663436}'
+                                            <%=item.location==="Fakultas Keguruan dan Ilmu Pendidikan" ? "selected" : ""
+                                            %>>
+                                            Fakultas Keguruan dan Ilmu
+                                            Pendidikan
+                                          </option>
+
+                                          <option
+                                            value='{"name":"Fakultas Ilmu Sosial dan Ilmu Politik","lat":-3.2164920814680253,"lng":104.65110736631193}'
+                                            <%=item.location==="Fakultas Ilmu Sosial dan Ilmu Politik" ? "selected" : ""
+                                            %>>
+                                            Fakultas Ilmu Sosial dan Ilmu
+                                            Politik
+                                          </option>
+
+                                          <option
+                                            value='{"name":"Fakultas MIPA","lat":-3.218442677831443,"lng":104.6463383862676}'
+                                            <%=item.location==="Fakultas MIPA" ? "selected" : "" %>>
+                                            Fakultas MIPA
+                                          </option>
+
+                                          <option
+                                            value='{"name":"Fakultas Ilmu Komputer","lat":-3.219481150172853,"lng":104.65115074590034}'
+                                            <%=item.location==="Fakultas Ilmu Komputer" ? "selected" : "" %>>
+                                            Fakultas Ilmu Komputer
+                                          </option>
+
+                                          <option
+                                            value='{"name":"Fakultas Kesehatan Masyarakat","lat":-3.2136355601985773,"lng":104.64461449546863}'
+                                            <%=item.location==="Fakultas Kesehatan Masyarakat" ? "selected" : "" %>>
+                                            Fakultas Kesehatan Masyarakat
+                                          </option>
+                                        </select>
+                                      </div>
+                                      <div class="col-span-2">
+                                        <label for="photo"
+                                          class="block mb-2 text-sm font-medium text-slate-800 dark:text-white">Foto</label>
+                                        <input type="file" name="photo" id="photo" accept="image/*"
+                                          class="bg-gray-50 border border-gray-300 text-slate-800 text-sm rounded-lg focus:ring-primary-600 focus:outline-blue-500 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                      </div>
+                                      <div class="col-span-2">
+                                        <label for="description"
+                                          class="block mb-2 text-sm font-medium text-slate-800 dark:text-white">Deksripsi
+                                        </label>
+                                        <textarea required id="description" name="description" rows="4"
+                                          class="block outline-none p-2.5 w-full text-sm text-slate-800 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                          placeholder="Deksripsi barang hilang"><%= item.description %></textarea>
+                                      </div>
+                                    </div>
+                                    <button type="submit"
+                                      class="inline-flex items-center gap-1 px-5 py-2.5 text-sm font-medium text-white bg-blue-500 rounded-lg hover:brightness-90 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="24" height="24" fill="none" />
+                                        <path
+                                          d="M.75,17.5A.751.751,0,0,1,0,16.75V12.569a.755.755,0,0,1,.22-.53L11.461.8a2.72,2.72,0,0,1,3.848,0L16.7,2.191a2.72,2.72,0,0,1,0,3.848L5.462,17.28a.747.747,0,0,1-.531.22ZM1.5,12.879V16h3.12l7.91-7.91L9.41,4.97ZM13.591,7.03l2.051-2.051a1.223,1.223,0,0,0,0-1.727L14.249,1.858a1.222,1.222,0,0,0-1.727,0L10.47,3.91Z"
+                                          transform="translate(3.25 3.25)" fill="currentColor" />
+                                      </svg>
+                                      Edit Barang
+                                    </button>
+
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <!-- Modal Hapus Barang -->
+                          <div id="delete-modal-<%= item.id %>" tabindex="-1"
+                            class="hidden fixed inset-0 z-100 flex justify-center items-center w-full h-full backdrop-blur-sm bg-black/30 overflow-y-auto overflow-x-hidden">
+                            <div class="relative p-4 w-full max-w-md max-h-full">
+                              <div class="relative bg-white rounded-lg shadow-sm">
+                                <button type="button"
+                                  class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-700 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                                  data-modal-hide="delete-modal-<%= item.id %>">
+                                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                  </svg>
+                                  <span class="sr-only">Close modal</span>
+                                </button>
+                                <div class="p-4 md:p-5 text-center">
+                                  <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 " aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                  </svg>
+                                  <h3 class="mb-5 text-lg font-normal text-gray-500">Anda yakin mau menghapus item ini?
+                                  </h3>
+                                  <form action="/item/delete/<%= item.id %>" method="POST">
+                                    <button data-modal-hide="delete-modal-<%= item.id %>" type="submit"
+                                      class="text-white !bg-orange-500 hover:!bg-orange-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                                      Hapus Item
+                                    </button>
+                                  </form>
+                                  <button data-modal-hide="delete-modal-<%= item.id %>" type="button"
+                                    class="py-2.5 px-5 ms-3 text-sm font-medium text-slate-700 focus:outline-none bg-white rounded-lg border border-slate-200 hover:bg-slate-100 focus:z-10 focus:ring-4 focus:ring-slate-100">Batal</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <% }); %>
+                            <% } %>
+
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Create -->
+      <div id="create-modal" tabindex="-1" aria-hidden="true"
+        class="hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full overflow-y-auto overflow-x-hidden bg-black/30 backdrop-blur-sm">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+          <!-- Modal content -->
+          <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+            <!-- Modal header -->
+            <div
+              class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+              <h3 class="text-lg font-semibold text-slate-800 dark:text-white">
+                Tambah Barang Hilang
+              </h3>
+              <button type="button"
+                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-700 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                data-modal-toggle="create-modal">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                  viewBox="0 0 14 14">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+                <span class="sr-only">Close modal</span>
+              </button>
+            </div>
+            <!-- Modal body -->
+            <form action="/item/add" method="POST" enctype="multipart/form-data" class="p-4 md:p-5">
+              <div class="flex flex-col gap-4 mb-4">
+                <div class="col-span-2">
+                  <label for="name" class="block mb-2 text-sm font-medium text-slate-800 dark:text-white">Nama</label>
+                  <input type="text" name="name" id="name"
+                    class="bg-gray-50 border border-gray-300 text-slate-800 text-sm rounded-lg focus:ring-primary-600 focus:outline-blue-500 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Nama barang" required="">
+                </div>
+                <div class="col-span-2 sm:col-span-1">
+                  <label for="time" class="block mb-2 text-sm font-medium text-slate-800 dark:text-white">
+                    Tanggal
+                  </label>
+                  <input type="datetime-local" name="time" id="time"
+                    class="bg-gray-50 border border-gray-300 text-slate-800 text-sm rounded-lg focus:ring-primary-600 focus:outline-blue-500 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    required>
+                </div>
+                <div class="col-span-2 sm:col-span-1">
+                  <label for="location"
+                    class="block mb-2 text-sm font-medium text-slate-800 dark:text-white">Lokasi</label>
+                  <select required name="location" id="location"
+                    class="bg-gray-50 border border-gray-300 text-slate-800 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 focus:outline-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option disabled selected value="">Pilih Lokasi</option>
+                    <option value='{"name":"Fakultas Ekonomi","lat":-3.2179922948347626,"lng":104.65064090892372}'>
+                      Fakultas Ekonomi
+                    </option>
+                    <option value='{"name":"Fakultas Hukum","lat":-3.2152647292845398,"lng":104.65079213961201}'>
+                      Fakultas Hukum
+                    </option>
+                    <option value='{"name":"Fakultas Teknik","lat":-3.2173254776649243,"lng":104.64614820884489}'>
+                      Fakultas Teknik
+                    </option>
+                    <option value='{"name":"Fakultas Kedokteran","lat":-3.2159599702186936,"lng":104.64695748632029}'>
+                      Fakultas Kedokteran
+                    </option>
+                    <option value='{"name":"Fakultas Pertanian","lat":-3.219581769304781,"lng":104.64816467407553}'>
+                      Fakultas Pertanian
+                    </option>
+                    <option
+                      value='{"name":"Fakultas Keguruan dan Ilmu Pendidikan","lat":-3.221087991803207,"lng":104.65166674663436}'>
+                      Fakultas Keguruan dan Ilmu Pendidikan
+                    </option>
+                    <option
+                      value='{"name":"Fakultas Ilmu Sosial dan Ilmu Politik","lat":-3.2164920814680253,"lng":104.65110736631193}'>
+                      Fakultas Ilmu Sosial dan Ilmu Politik
+                    </option>
+                    <option value='{"name":"Fakultas MIPA","lat":-3.218442677831443,"lng":104.6463383862676}'>
+                      Fakultas MIPA
+                    </option>
+                    <option value='{"name":"Fakultas Ilmu Komputer","lat":-3.219481150172853,"lng":104.65115074590034}'>
+                      Fakultas Ilmu Komputer
+                    </option>
+                    <option
+                      value='{"name":"Fakultas Kesehatan Masyarakat","lat":-3.2136355601985773,"lng":104.64461449546863}'>
+                      Fakultas Kesehatan Masyarakat
+                    </option>
+                  </select>
+                </div>
+                <div class="col-span-2">
+                  <label for="photo" class="block mb-2 text-sm font-medium text-slate-800 dark:text-white">Foto</label>
+                  <input type="file" name="photo" id="photo" accept="image/*"
+                    class="bg-gray-50 border border-gray-300 text-slate-800 text-sm rounded-lg focus:ring-primary-600 focus:outline-blue-500 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    required>
+                </div>
+                <div class="col-span-2">
+                  <label for="description"
+                    class="block mb-2 text-sm font-medium text-slate-800 dark:text-white">Deksripsi </label>
+                  <textarea required id="description" name="description" rows="4"
+                    class="block outline-none p-2.5 w-full text-sm text-slate-800 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Deksripsi barang hilang"></textarea>
+                </div>
+              </div>
+              <button type="submit"
+                class="text-white inline-flex items-center bg-blue-500 hover:brightness-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                Tambah barang
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <footer class="pt-4">
+        <div class="w-full px-6 mx-auto">
+          <div class="flex flex-wrap items-center -mx-3 lg:justify-between">
+            <div class="w-full max-w-full px-3 mt-0 mb-6 shrink-0 lg:mb-0 lg:w-1/2 lg:flex-none">
+              <div class="text-sm leading-normal text-center text-slate-500 lg:text-left">
+                ©
+                <script>
+                  document.write(new Date().getFullYear() + ",");
+                </script>
+                made with <i class="fa fa-heart"></i> by
+                <a href="https://www.creative-tim.com" class="font-semibold dark:text-white text-slate-700"
+                  target="_blank">FindtIt Unsri Team</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+</div>
