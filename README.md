@@ -82,14 +82,15 @@ Here are the steps to run this project locally.
 7.  **Create an Admin User:**
     With the server running, you need to create a user account to log in. Send a `POST` request to `http://localhost:3000/register` using an API platform like Postman or Insomnia.
 
+    Replace `your_username` and `your_password` values in the body with your desired credentials.
+
     **Request Body (JSON):**
     ```json
     {
-    	"username": "username",
-    	"password": "password"
+    	"username": "your_username",
+    	"password": "your_password"
     }
     ```
-
 8.  **Access the application** in your browser at:
     ```
     http://localhost:3000
