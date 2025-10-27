@@ -18,7 +18,7 @@ const __dirname = path.dirname(__filename)
 dotenv.config();
 
 
-app.set('view engine', 'ejs') 
+app.set('view engine', 'ejs')
 app.use(expressLayouts)
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
@@ -35,7 +35,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.use(session({
-    secret: process.env.SESSION_SECRET,   
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true
 }));
@@ -53,7 +53,7 @@ app.get('/', async (req, res) => {
 
         res.render('index', {
             layout: 'layouts/main-layout',
-            title: 'FoundIt Unsri',
+            title: 'FindIt Unsri',
             items,
         });
     } catch (err) {
@@ -76,7 +76,7 @@ app.get('/detail/:id', async (req, res) => {
 
         res.render('detail', {
             layout: 'layouts/main-layout',
-            title: 'FoundIt Unsri - Detail',
+            title: 'FindIt Unsri - Detail',
             item
         });
     } catch (err) {
@@ -93,13 +93,47 @@ app.get('/login', (req, res) => {
     })
 })
 
-app.get('/dashboard', isLoggedIn, async (req, res) => {
+app.get('/dashboard/table', isLoggedIn, async (req, res) => {
     try {
         const [rows] = await pool.query('SELECT * FROM item ORDER BY created_at DESC');
 
-        res.render('dashboard', {
+        res.render('dashboard-table', {
             layout: 'layouts/main-layout',
-            title: 'FoundIt Unsri - Dashboard',
+            title: 'FindIt Unsri - Dashboard Table',
+            items: rows,
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+});
+
+app.get('/dashboard/map', isLoggedIn, async (req, res) => {
+    try {
+        const [rows] = await pool.query(`
+            SELECT 
+                f.name AS location,
+                COUNT(i.id) AS amount
+            FROM (
+                SELECT 'Fakultas Ekonomi' AS name
+                UNION ALL SELECT 'Fakultas Hukum'
+                UNION ALL SELECT 'Fakultas Teknik'
+                UNION ALL SELECT 'Fakultas Kedokteran'
+                UNION ALL SELECT 'Fakultas Pertanian'
+                UNION ALL SELECT 'Fakultas Keguruan dan Ilmu Pendidikan'
+                UNION ALL SELECT 'Fakultas Ilmu Sosial dan Ilmu Politik'
+                UNION ALL SELECT 'Fakultas MIPA'
+                UNION ALL SELECT 'Fakultas Ilmu Komputer'
+                UNION ALL SELECT 'Fakultas Kesehatan Masyarakat'
+            ) AS f
+            LEFT JOIN item i ON i.location = f.name
+            GROUP BY f.name
+            ORDER BY f.name;
+        `);
+
+        res.render('dashboard-map', {
+            layout: 'layouts/main-layout',
+            title: 'FindIt Unsri - Dashboard Map',
             items: rows,
         });
     } catch (err) {
@@ -126,13 +160,13 @@ app.post('/register', async (req, res) => {
         console.error(err);
         res.status(500).json({ error: 'Server error' });
     }
-}); 
+});
 
 
- 
+
 app.post('/login', async (req, res) => {
     try {
-        const { username, password } = req.body;        
+        const { username, password } = req.body;
 
         const [rows] = await pool.query('SELECT * FROM user WHERE username = ?', [username]);
         const user = rows[0];
@@ -147,7 +181,7 @@ app.post('/login', async (req, res) => {
         }
 
         req.session.user = { id: user.id, username: user.username };
-        res.redirect('/dashboard');
+        res.redirect('/dashboard/table');
     } catch (err) {
         console.error(err);
         res.status(500).send('Server error');
@@ -155,20 +189,20 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/logout', async (req, res) => {
-  try {
-    await new Promise((resolve, reject) => {
-      req.session.destroy(err => {
-        if (err) return reject(err);
-        resolve();
-      });
-    });
+    try {
+        await new Promise((resolve, reject) => {
+            req.session.destroy(err => {
+                if (err) return reject(err);
+                resolve();
+            });
+        });
 
-    res.clearCookie('connect.sid');
-    res.redirect('/');
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Gagal logout');
-  }
+        res.clearCookie('connect.sid');
+        res.redirect('/');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Gagal logout');
+    }
 });
 
 
@@ -227,7 +261,7 @@ app.post('/item/edit/:id', upload.single('photo'), async (req, res) => {
 
         let params = [name, location_name, latitude, longitude, time, description, status, photo, id];
 
-        await pool.query(sql, params); 
+        await pool.query(sql, params);
 
         res.redirect('/dashboard');
     } catch (err) {
